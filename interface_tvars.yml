@@ -1,0 +1,21 @@
+---
+interfaces:
+- name: ge-0/0/0
+  sub_interfaces:
+  - vlan: 161
+    ip_addr: 172.16.1.1/24
+  - vlan: 162
+    ip_addr: 172.16.2.1/24
+- name: ge-0/0/1
+  ip_addr: 9.9.9.1/24
+- name: ge-0/0/2
+  mode: trunk
+  vlans:
+  - 500
+  - 600-650
+  - 700
+- name: ge-0/0/3
+  sub_interfaces:
+  - { vlan: 101, ip_addr: 10.10.1.254/24 }
+  - { vlan: 201, ip_addr: 10.20.1.254/24 }
+  - { vlan: 301, ip_addr: 10.30.1.254/24 }

@@ -1,0 +1,35 @@
+{%- if interfaces %}
+interfaces {
+    {%- for interface in interfaces %}
+    {{ interface.name }} {
+        {%- if interface.sub_interfaces %}
+        flexible-vlan-tagging;
+        encapsulation flexible-ethernet-services;
+        {%- for sub_interface in interface.sub_interfaces %}
+        unit {{ sub_interface.vlan }} {
+            vlan-id {{ sub_interface.vlan }};
+            family inet {
+                address {{ sub_interface.ip_addr }};
+            }
+        }
+        {%- endfor %}
+        {%- else %}
+        unit 0 {
+            {%- if interface.ip_addr %}
+            family inet {
+                address {{ interface.ip_addr }};
+            }
+            {%- else %}
+            family ethernet-switching {
+                interface-mode {{ interface.mode }};
+                vlan {
+                    members [{%- for vlan in interface.vlans %} {{ vlan }} {%- endfor %}]
+                }
+            }
+            {%- endif %}
+        }
+        {%- endif %}
+    }
+    {%- endfor %}
+}
+{% endif %}
