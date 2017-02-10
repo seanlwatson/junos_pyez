@@ -10,8 +10,7 @@ https://junos-pyez.readthedocs.io/en/2.0.1/
 ## Junos XML API
 CLI (Command Line Interface) output, which is the typical type of human-interface for network hardware, is a good way for humans to interact. However it is not a good interface for interacting with programs for automation as the data output is not in a structured format and data cannot be easily parsed for retrieval. For example consider retrieving the serial number of a Junos device - how would it be done?
 
-'''
-  seanw@vsrx1> show chassis hardware 
+ `seanw@vsrx1> show chassis hardware 
   Hardware inventory:
   Item             Version  Part number  Serial number     Description
   Chassis                                BABF6658EFA5      VSRX
@@ -19,13 +18,11 @@ CLI (Command Line Interface) output, which is the typical type of human-interfac
   CB 0            
   Routing Engine 0          BUILTIN      BUILTIN           SRX Routing Engine
   FPC 0            REV 07   611-049549   RL3714040884      FPC
-    PIC 0                   BUILTIN      BUILTIN           VSRX DPDK GE
-'''
+    PIC 0                   BUILTIN      BUILTIN           VSRX DPDK GE`
 
 Junos software operates over an XML (Extensible Markup Language) API (Application Program Interface). Junos recieves request in XML format and produces responses in XML format. Request are recieved via RPC (Remote Procedure Calls) and are enclosed in **`<rpc>`** tags:
 
-'''
-  seanw@vsrx1> show chassis hardware | display xml rpc 
+ `seanw@vsrx1> show chassis hardware | display xml rpc 
   <rpc-reply xmlns:junos="http://xml.juniper.net/junos/15.1X49/junos">
       <rpc>
           <get-chassis-inventory>
@@ -34,13 +31,12 @@ Junos software operates over an XML (Extensible Markup Language) API (Applicatio
       <cli>
           <banner></banner>
       </cli>
-  </rpc-reply>
-'''
+  </rpc-reply>`
 
 The Junos device places its responses in **`<rpc-reply>`** tags:
 
-'''
-  seanw@vsrx1> show chassis hardware | display xml 
+
+ `seanw@vsrx1> show chassis hardware | display xml 
   <rpc-reply xmlns:junos="http://xml.juniper.net/junos/15.1X49/junos">
       <chassis-inventory xmlns="http://xml.juniper.net/junos/15.1X49/junos-chassis">
           <chassis junos:style="inventory">
@@ -82,5 +78,4 @@ The Junos device places its responses in **`<rpc-reply>`** tags:
       <cli>
           <banner></banner>
       </cli>
-  </rpc-reply>
-'''
+  </rpc-reply>`
